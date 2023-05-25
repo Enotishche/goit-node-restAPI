@@ -23,7 +23,7 @@ const register = async (req, res) => {
   const newUser = await User.create({ ...req.body, password: hashPassword, avatarURL, verificationToken,});
   const verifyEmail = { to: email, 
                         subject: "Verify email", 
-                        html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationToken}">Click to verify email</a>`,};
+                        html: `<a target="_blank" href="http://${BASE_URL}/api/auth/verify/${verificationToken}">Click to verify email</a>`,};
   
   await sendEmail(verifyEmail);
   res.status(201).json( { email: newUser.email, password: newUser.password });
@@ -51,8 +51,8 @@ const resendVerifyEmail = async (req, res) => {
   }
 
   const verifyEmail = { to: email,
-                        subject: "Verify email",
-                        html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${user.verificationToken}">Click to verify email</a>`,};
+                        subject: "Verify Your email",
+                        html: `<a target="_blank" href="http://${BASE_URL}/api/auth/verify/${user.verificationToken}">Click to verify email</a>`,};
 
   await sendEmail(verifyEmail);
   res.status(200).json({ message: `Verification mail sent to: ${email}`});
